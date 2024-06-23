@@ -1,0 +1,183 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model Interval {
+  id            Int      @id @default(autoincrement())
+  date          DateTime
+  driver_number Int
+  gap_to_leader Float?
+  interval      Float?
+  meeting_key   Int
+  session_key   Int
+}
+
+model CarData {
+    id              Int      @id @default(autoincrement())
+    brake           Int
+    date            DateTime
+    driver_number   Int
+    drs             Int
+    meeting_key	    Int
+    n_gear          Int
+    rpm             Int
+    session_key     Int
+    speed           Int
+    throttle        Int
+}
+
+model Drivers {
+    id              Int      @id @default(autoincrement())
+    broadcast_name	String
+    country_code    String	
+    driver_number   Int
+    first_name      String
+    full_name       String
+    headshot_url    String
+    last_name	    String
+    meeting_key	    Int
+    name_acronym	String
+    session_key	    Int
+    team_colour	    String
+    team_name       String
+}
+
+model Laps {
+    id                  Int      @id @default(autoincrement())
+    date_start	        DateTime
+    driver_number	    Int
+    duration_sector_1	Float
+    duration_sector_2	Float
+    duration_sector_3	Float
+    i1_speed	        Int
+    i2_speed	        Int
+    is_pit_out_lap	    Boolean
+    lap_duration	    Float
+    lap_number	        Int
+    meeting_key	        Int
+    segments_sector_1	Int[]
+    segments_sector_2	Int[]
+    segments_sector_3	Int[]
+    session_key	        Int
+    st_speed            Int
+}
+
+model Location {
+    id              Int      @id @default(autoincrement())
+    date	        DateTime
+    driver_number	Int
+    meeting_key	    Int
+    session_key	    Int
+    x	            Int
+    y	            Int
+    z               Int
+}
+
+model Meetings {
+    id                      Int      @id @default(autoincrement())
+    circuit_key	            Int
+    circuit_short_name	    String
+    country_code	        String
+    country_key	            Int
+    country_name	        String
+    date_start	            DateTime
+    gmt_offset	            String
+    location	            String
+    meeting_key	            Int
+    meeting_name	        String
+    meeting_official_name	String
+    year                    Int
+}
+
+model Pit {
+    id              Int      @id @default(autoincrement())
+    date	        DateTime
+    driver_number	Int
+    lap_number	    Int
+    meeting_key	    Int
+    pit_duration	Float
+    session_key     Int
+}
+
+model Position {
+    id              Int      @id @default(autoincrement())
+    date	        DateTime
+    driver_number	Int
+    meeting_key	    Int
+    position	    Int
+    session_key     Int
+}
+
+model RaceControl {
+    id              Int      @id @default(autoincrement())
+    category	    String
+    date	        DateTime
+    driver_number	Int
+    flag	        String
+    lap_number	    Int
+    meeting_key	    Int
+    message	        String
+    scope	        String
+    sector	        Int
+    session_key     Int
+}
+
+model Sessions {
+    id                  Int      @id @default(autoincrement())
+    circuit_key	        Int
+    circuit_short_name	String
+    country_code	    String
+    country_key	        Int
+    country_name	    String
+    date_end	        DateTime
+    date_start	        DateTime
+    gmt_offset	        String
+    location	        String
+    meeting_key	        Int
+    session_key	        Int
+    session_name	    String  
+    session_type	    String
+    year                Int
+}
+
+model Stints {
+    id                  Int      @id @default(autoincrement())
+    compound	        String
+    driver_number	    Int
+    lap_end	            Int
+    lap_start	        Int
+    meeting_key	        Int
+    session_key	        Int
+    stint_number	    Int
+    tyre_age_at_start   Int
+}
+
+model TeamRadio {
+    id              Int      @id @default(autoincrement())
+    date	        DateTime
+    driver_number	Int
+    meeting_key	    Int
+    recording_url   String
+    session_key     Int
+}
+
+model Weather {
+    id                  Int      @id @default(autoincrement())
+    air_temperature	    Float
+    date	            DateTime
+    humidity	        Int
+    meeting_key	        Int
+    pressure	        Float
+    rainfall	        Int
+    session_key	        Int
+    track_temperature	Float
+    wind_direction	    Int
+    wind_speed          Int
+}
+
